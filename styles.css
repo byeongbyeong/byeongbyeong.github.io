@@ -468,6 +468,203 @@ h3 {
   transform: none;
 }
 
+.studioGallery {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 54px;
+}
+
+.studioGallery figure {
+  background: var(--charcoal);
+  border-radius: 8px;
+  margin: 0;
+  overflow: hidden;
+}
+
+.studioGallery .galleryFeature {
+  grid-column: 1 / -1;
+}
+
+.studioGallery img {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  width: 100%;
+}
+
+.studioGallery figcaption {
+  align-items: center;
+  color: #fffaf2;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  min-height: 72px;
+  padding: 18px 20px;
+}
+
+.studioGallery figcaption span {
+  color: var(--gold);
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.studioGallery figcaption strong {
+  font-size: 17px;
+  text-align: right;
+  word-break: keep-all;
+}
+
+.equipmentSection {
+  background: #17191b;
+  color: #f8f2e8;
+  padding: clamp(72px, 10vw, 118px) clamp(18px, 4vw, 56px);
+}
+
+.equipmentInner {
+  margin: 0 auto;
+  max-width: 1180px;
+}
+
+.equipmentHeader {
+  align-items: end;
+  display: grid;
+  gap: clamp(28px, 6vw, 76px);
+  grid-template-columns: minmax(0, 1.12fr) minmax(300px, 0.72fr);
+}
+
+.equipmentHeader h2 {
+  color: #fffaf2;
+  margin-bottom: 0;
+}
+
+.equipmentHeader > p {
+  color: #c9c3b9;
+  line-height: 1.75;
+  margin-bottom: 2px;
+  word-break: keep-all;
+}
+
+.equipmentStats {
+  border-bottom: 1px solid #3b3e40;
+  border-top: 1px solid #3b3e40;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 52px;
+}
+
+.equipmentStats div {
+  border-right: 1px solid #3b3e40;
+  display: grid;
+  gap: 7px;
+  min-height: 126px;
+  padding: 28px 22px;
+}
+
+.equipmentStats div:last-child {
+  border-right: 0;
+}
+
+.equipmentStats strong {
+  color: #fffaf2;
+  font-size: clamp(24px, 3vw, 38px);
+}
+
+.equipmentStats span {
+  color: #9ea29e;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.equipmentGrid {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 42px;
+}
+
+.equipmentCard {
+  background: #202326;
+  min-height: 390px;
+  padding: clamp(24px, 4vw, 38px);
+}
+
+.equipmentNumber {
+  color: var(--gold);
+  display: block;
+  font-size: 13px;
+  font-weight: 900;
+  margin-bottom: 38px;
+}
+
+.equipmentLabel {
+  color: #8f948f;
+  font-size: 12px;
+  font-weight: 900;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.equipmentCard h3 {
+  color: #fffaf2;
+  font-size: 25px;
+}
+
+.equipmentCard > p:not(.equipmentLabel) {
+  color: #c9c3b9;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  max-width: 470px;
+  word-break: keep-all;
+}
+
+.equipmentCard ul,
+.softwareShelf ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.equipmentCard li {
+  border-top: 1px solid #3b3e40;
+  color: #f2ede4;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 12px 0;
+}
+
+.softwareShelf {
+  align-items: start;
+  border-top: 1px solid #3b3e40;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 180px 1fr;
+  margin-top: 42px;
+  padding-top: 28px;
+}
+
+.softwareShelf > span {
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.softwareShelf ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.softwareShelf li {
+  border: 1px solid #45494b;
+  border-radius: 8px;
+  color: #ddd6cb;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 9px 12px;
+}
+
 @media (max-width: 880px) {
   .hero {
     min-height: auto;
@@ -475,14 +672,28 @@ h3 {
 
   .heroGrid,
   .processBand,
-  .contactSection {
+  .contactSection,
+  .equipmentHeader {
     grid-template-columns: 1fr;
   }
 
   .introBand,
   .featureGrid,
-  .curriculumGrid {
+  .curriculumGrid,
+  .equipmentGrid {
     grid-template-columns: 1fr;
+  }
+
+  .equipmentStats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .equipmentStats div:nth-child(2) {
+    border-right: 0;
+  }
+
+  .equipmentStats div:nth-child(-n + 2) {
+    border-bottom: 1px solid #3b3e40;
   }
 
   .featureCard,
@@ -519,7 +730,7 @@ h3 {
     border-radius: 8px;
     display: grid;
     gap: 0;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     overflow: hidden;
   }
 
@@ -583,6 +794,59 @@ h3 {
   .section,
   .contactSection {
     padding: 56px 16px;
+  }
+
+  .studioGallery {
+    gap: 12px;
+    grid-template-columns: 1fr;
+    margin-top: 34px;
+  }
+
+  .studioGallery .galleryFeature {
+    grid-column: auto;
+  }
+
+  .studioGallery figcaption {
+    align-items: start;
+    display: grid;
+    gap: 7px;
+    min-height: 0;
+    padding: 15px 16px 17px;
+  }
+
+  .studioGallery figcaption strong {
+    font-size: 16px;
+    text-align: left;
+  }
+
+  .equipmentSection {
+    padding: 58px 16px;
+  }
+
+  .equipmentStats {
+    margin-top: 34px;
+  }
+
+  .equipmentStats div {
+    min-height: 105px;
+    padding: 20px 14px;
+  }
+
+  .equipmentGrid {
+    margin-top: 28px;
+  }
+
+  .equipmentCard {
+    min-height: 0;
+    padding: 24px 20px;
+  }
+
+  .equipmentNumber {
+    margin-bottom: 26px;
+  }
+
+  .softwareShelf {
+    grid-template-columns: 1fr;
   }
 
   .featureGrid,
