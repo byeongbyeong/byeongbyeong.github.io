@@ -1,8 +1,12 @@
-const photos = {'control-room':['01 / CONTROL ROOM','컨트롤룸 설계 렌더링'],'booth-view':['02 / VOCAL BOOTH','보컬룸 설계 렌더링'],'top-view':['03 / STUDIO PLAN','스튜디오 전체 공간 설계 렌더링']};
+const photos = {
+  'studio-room-bright': ['01 / SHARED STUDIO', '작업 책상과 보컬 녹음 위치가 함께 있는 밝은 단일 공간 설계 이미지'],
+  'workstation-bright': ['02 / WORKSTATION', '같은 공간에서 녹음 디렉과 믹싱을 진행하는 작업 자리 설계 이미지'],
+  'studio-overview-bright': ['03 / SINGLE-ROOM LAYOUT', '책상, 녹음 마이크와 출입 동선이 한 공간에 있는 스튜디오 배치 설계 이미지']
+};
 document.querySelectorAll('[data-image]').forEach(button => button.addEventListener('click', () => {
   const key = button.dataset.image;
   const image = document.querySelector('#space-image');
-  image.src = './studio-assets/' + key + '.png';
+  image.src = './studio-assets/' + key + '.webp';
   image.alt = photos[key][1];
   document.querySelector('#space-label').textContent = photos[key][0];
   document.querySelectorAll('[data-image]').forEach(item => {item.classList.toggle('selected',item===button);item.setAttribute('aria-pressed',String(item===button));});
