@@ -6,8 +6,10 @@ const photos = {
 document.querySelectorAll('[data-image]').forEach(button => button.addEventListener('click', () => {
   const key = button.dataset.image;
   const image = document.querySelector('#space-image');
-  image.src = './studio-assets/' + key + '.webp';
-  image.alt = photos[key][1];
+  image.src = button.dataset.src || './studio-assets/' + key + '.webp';
+  image.alt = button.dataset.alt ?? photos[key][1];
+  image.style.objectPosition = button.dataset.position || '';
+  image.style.objectFit = button.dataset.fit || 'contain';
   document.querySelector('#space-label').textContent = photos[key][0];
   document.querySelectorAll('[data-image]').forEach(item => {item.classList.toggle('selected',item===button);item.setAttribute('aria-pressed',String(item===button));});
 }));
