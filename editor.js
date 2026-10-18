@@ -9,9 +9,9 @@
   const targets = new Map();
   const sections = [...original.querySelectorAll('main>section')];
   const sectionNames = ['메인 화면','스튜디오 소개','공간 사진','프로그램','장비 소개','방문 상담','자주 묻는 질문'];
-  sections.forEach((node,i) => {node.dataset.sectionId='s'+i;});
+  sections.forEach((node,i) => {if(!node.dataset.sectionId)node.dataset.sectionId='s'+i;});
   original.querySelectorAll(textSelector).forEach((node,i) => {
-    const id='t'+i;
+    const id=node.dataset.editId||'t'+i;
     node.dataset.editId=id;
     targets.set(id,{type:'text',node,label:ownText(node).trim().slice(0,32)||'문구'});
   });
@@ -27,7 +27,7 @@
     targets.set('g-'+key,{type:'gallery',key,label:'공간 사진 '+(i+1),src:'studio-assets/'+key+'.webp',alt:info[1]});
   });
   let state=fresh(), selected=null, viewport='desktop', history=[], future=[], db=null, ready=false, saving=0;
-  function fresh(){return {version:1,templateHash:template.hash,edits:{},feedback:{},order:sections.map(n=>n.dataset.sectionId),hidden:[]};}
+  function fresh(){return {version:1,templateHash:template.hash,edits:{},feedback:{},order:sections.map(n=>n.dataset.sectionId),hidden:sections.filter(n=>n.hidden).map(n=>n.dataset.sectionId)};}
   function clone(value){return JSON.parse(JSON.stringify(value));}
   function ownText(node){return [...node.childNodes].filter(n=>n.nodeType===3||n.nodeName==='BR').map(n=>n.nodeName==='BR'?'\n':n.textContent).join('');}
   function putText(node,value){
@@ -60,8 +60,8 @@
       if(!node)continue;
       if(entry.type==='text'){
         putText(node,edit.text??ownText(entry.node));
-        if(edit.align)node.style.textAlign=edit.align;else node.style.removeProperty('text-align');
-        if(edit.color)node.style.color=edit.color;else node.style.removeProperty('color');
+        node.style.textAlign=edit.align||entry.node.style.textAlign;
+        node.style.color=edit.color||entry.node.style.color;
       }else{
         node.src=edit.src||entry.src;node.alt=edit.alt??entry.alt;
         node.style.objectFit=edit.fit||'cover';
@@ -72,8 +72,8 @@
     const main=doc.querySelector('main');
     state.order.forEach((id,i)=>{const node=doc.querySelector('[data-section-id="'+id+'"]');if(main.children[i]!==node)main.insertBefore(node,main.children[i]||null);node.hidden=state.hidden.includes(id);});
     doc.querySelectorAll('header nav>a').forEach(a=>{const section=doc.querySelector(a.getAttribute('href'));a.hidden=Boolean(section?.hidden);});
-    let style=doc.querySelector('#sori-custom-style');
-    if(!style){style=doc.createElement('style');style.id='sori-custom-style';doc.head.append(style);}
+    let style=doc.querySelector('#sori-editor-overrides');
+    if(!style){style=doc.createElement('style');style.id='sori-editor-overrides';doc.head.append(style);}
     let css='[hidden]{display:none!important}h1,h2,h3,p{overflow-wrap:anywhere}.hero{height:auto;max-height:none;min-height:calc(100svh - 125px)}.hero-copy{padding-bottom:100px}@media(max-width:600px){.hero{min-height:550px}}';
     for(const [id,edit] of Object.entries(state.edits)){
       if(edit.fontDesktop)css+='[data-edit-id="'+id+'"]{font-size:'+edit.fontDesktop+'px!important}';
